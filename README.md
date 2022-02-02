@@ -47,7 +47,6 @@ inputs:
 name: reviewdog
 on: [pull_request]
 jobs:
-  # TODO: change `linter_name`.
   pytest:
     name: runner / pytest
     runs-on: ubuntu-latest
