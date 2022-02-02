@@ -1,0 +1,39 @@
+[tool.poetry]
+name = "action-pytest"
+version = "0.1.0"
+description = "Run pytest with Reviewdog :dog:"
+authors = ["Ross <git@ross.ch>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pytest = "^6.2.5"
+pytest-cov = "^3.0.0"
+pytest-profiling = "^1.7.0"
+pytest-timeout = "^2.1.0"
+pytest-json-report = "^1.4.1"
+
+[tool.poetry.dev-dependencies]
+black = "^22.1.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+# Use the more relaxed max line length permitted in PEP8.
+line-length = 99
+exclude = '''
+/(
+    \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | typings
+    | build
+    | dist
+    | migrations
+)/
+'''
