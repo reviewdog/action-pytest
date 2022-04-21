@@ -1,0 +1,43 @@
+{
+    "source": {
+        "name": "pytest",
+        "url": "https://github.com/pytest-dev/pytest"
+    },
+    "severity": "WARNING",
+    "diagnostics": [
+        {
+            "message": "Traceback:\n\t- Location: [testdata/fail/test_fail.py](testdata/fail/test_fail.py#L18)\n- Line: 18\n- Message:AssertionError",
+            "severity": "ERROR",
+            "location": {
+                "path": "/home/marvin/git/github/reviewdog/action-pytest/testdata/fail/test_fail.py",
+                "range": {
+                    "start": {
+                        "line": 18,
+                        "column": 1
+                    },
+                    "end": {
+                        "line": 18,
+                        "column": 1
+                    }
+                }
+            }
+        },
+        {
+            "message": "Traceback:\n\t- Location: [testdata/fail/test_fail.py](testdata/fail/test_fail.py#L25)\n- Line: 25\n\t- Location: [testdata/fail/fail.py](testdata/fail/fail.py#L29)\n- Line: 29\n- Message:in fail_recursive_fib\n\t- Location: [testdata/fail/fail.py](testdata/fail/fail.py#L29)\n- Line: 29\n- Message:in fail_recursive_fib\n\t- Location: [testdata/fail/fail.py](testdata/fail/fail.py#L29)\n- Line: 29\n- Message:in fail_recursive_fib\n\t- Location: [testdata/fail/fail.py](testdata/fail/fail.py#L29)\n- Line: 29\n- Message:in fail_recursive_fib\n\t- Location: [testdata/fail/fail.py](testdata/fail/fail.py#L29)\n- Line: 29\n- Message:in fail_recursive_fib\n\t- Location: [testdata/fail/fail.py](testdata/fail/fail.py#L24)\n- Line: 24\n- Message:FibException",
+            "severity": "ERROR",
+            "location": {
+                "path": "/home/marvin/git/github/reviewdog/action-pytest/testdata/fail/fail.py",
+                "range": {
+                    "start": {
+                        "line": 24,
+                        "column": 1
+                    },
+                    "end": {
+                        "line": 24,
+                        "column": 1
+                    }
+                }
+            }
+        }
+    ]
+}

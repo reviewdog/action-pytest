@@ -62,6 +62,46 @@ jobs:
           level: warning
 ```
 
+## Inputs
+
+### `github_token`
+
+**Required**. The [GITHUB_TOKEN](https://docs.github.com/en/free-pro-team@latest/actions/reference/authentication-in-a-workflow). Must be in form of `github_token: ${{ secrets.github_token }}`. Defaults to `${{ github.token }}`.
+
+### `workdir`
+
+**Optional**. The directory to run pytest on. Defaults to `.`.
+
+#### `pytest_args`
+
+**Optional**. Command-line arguments to the pytest executable. Defaults to `""`.
+
+Please note that some command-line arguments can be defined with other fields in your configuration.  You may combine the `pytest_args` setting with the other settings below, or use `pytest_args` to configure pytest without the other Action settings.
+
+#### `level`
+
+**Optional**. The log level of the reviewdog reporter. Options: `[info, warning, error]`. Defaults to `error`.
+
+#### `reporter`
+
+**Optional**. Reporter of reviewdog command `[github-pr-check, github-pr-review, github-check]`. Defaults to `github-pr-check`.
+
+#### `filter_mode`
+
+**Optional**. Filtering mode for the reviewdog command `[added, diff_context, file, nofilter]`. Defaults to `added`.
+
+#### `fail_on_error`
+
+**Optional**. Exit code for reviewdog when errors are found `[true, false]`. Defaults to `false`.
+
+#### `reviewdog_flags`
+
+**Optional**. Additional reviewdog flags. Defaults to `""`.
+
+#### `tool_name`
+
+**Optional**. Tool name to use for reviewdog reporter. Defaults to `pytest`.
+
 ## Development
 
 ### Release

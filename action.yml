@@ -1,43 +1,81 @@
-name: 'TODO: Run <linter-name> with reviewdog'
-description: 'TODO: 🐶 Run <linter-name> with reviewdog on pull requests to improve code review experience.'
-author: 'TODO: <your-name>'
+name: 'Run pytest with reviewdog'
+description: '🐶 Run pytest with reviewdog on pull requests to improve code review experience.'
+author: 'Ross Chadwick'
 inputs:
+  ### Generic flags ###
   github_token:
     description: 'GITHUB_TOKEN'
     default: '${{ github.token }}'
+    required: true
   workdir:
     description: 'Working directory relative to the root directory.'
+    required: false
     default: '.'
   ### Flags for reviewdog ###
   level:
     description: 'Report level for reviewdog [info,warning,error]'
+    required: false
     default: 'error'
   reporter:
     description: 'Reporter of reviewdog command [github-pr-check,github-pr-review].'
+    required: false
     default: 'github-pr-check'
   filter_mode:
     description: |
       Filtering mode for the reviewdog command [added,diff_context,file,nofilter].
       Default is added.
+    required: false
     default: 'added'
   fail_on_error:
     description: |
       Exit code for reviewdog when errors are found [true,false]
       Default is `false`.
+    required: false
     default: 'false'
+  tool_name:
+    description: "Tool name to use for reviewdog reporter."
+    required: false
+    default: "pytest"
   reviewdog_flags:
     description: 'Additional reviewdog flags'
+    required: false
     default: ''
-  ### Flags for <linter-name> ###
-  locale:
-    description: '-locale flag of misspell. (US/UK)'
-    default: ''
+  ### Flags for pytest ###
+  pytest_coverage:
+    description: "Enables coverage reports output for pytest."
+    required: false
+    default: ""
+  pytest_profiling:
+    description: "Enables profiling reports output for pytest."
+    required: false
+    default: ""
+  pytest_profiling_visual:
+    description: "Enables visual profiling output for pytest. If both `pytest_profiling_visual` and `pytest_profiling` are true, visual mode takes precedence."
+    required: false
+    default: ""
+  pytest_args:
+    description: "Additional pytest arguments in standard command-line format, separated by spaces. If a custom argument conflicts with a pre-defined one, the custom argument will take precedence."
+    required: false
+    default: ""
+
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  env:
+    INPUT_WORKDIR: ${{ inputs.workdir }}
+    INPUT_PYTEST_CUSTOM_ARGS: ${{ inputs.pytest_args }}
+    INPUT_PYTEST_PROFILING: ${{ inputs.pytest_profiling }}
+    INPUT_PYTEST_PROFILING_VISUAL: ${{ inputs.pytest_profiling_visual }}
+    INPUT_PYTEST_COVERAGE: ${{ inputs.pytest_coverage }}
+    INPUT_GITHUB_TOKEN: ${{ inputs.github_token }}
+    INPUT_TOOL_NAME: ${{ inputs.tool_name }}
+    INPUT_LEVEL: ${{ inputs.level }}
+    INPUT_REPORTER: ${{ inputs.reporter }}
+    INPUT_FILTER_MODE: ${{ inputs.filter_mode }}
+    INPUT_FAIL_ON_ERROR: ${{ inputs.fail_on_error }}
+    INPUT_REVIEWDOG_FLAGS: ${{ inputs.reviewdog_flags }}
 
 # Ref: https://haya14busa.github.io/github-action-brandings/
-# TODO: update branding if you want.
 branding:
   icon: 'check'
   color: 'blue'

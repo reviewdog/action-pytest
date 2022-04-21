@@ -1,17 +1,24 @@
-FROM alpine:3.15
+FROM python:alpine
 
 ENV REVIEWDOG_VERSION=v0.13.0
 
+WORKDIR /src
+
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 
-# hadolint ignore=DL3006
-RUN apk --no-cache add git
+# hadolint ignore=DL3006,DL3018
+RUN apk --no-cache add build-base libffi-dev git graphviz
 
-RUN wget -O - -q https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh| sh -s -- -b /usr/local/bin/ ${REVIEWDOG_VERSION}
+COPY pyproject.toml pyproject.toml
+COPY poetry.lock poetry.lock
 
-# TODO: Install a linter and/or change docker image as you need.
-RUN wget -O - -q https://git.io/misspell | sh -s -- -b /usr/local/bin/
+RUN wget -O - -q https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh| sh -s -- -b /usr/local/bin ${REVIEWDOG_VERSION}
 
-COPY entrypoint.sh /entrypoint.sh
+# hadolint ignore=DL3013,SC2169,SC3001
+RUN python -m pip install --no-cache-dir --upgrade pip && \
+    python -m pip install --no-cache-dir --upgrade poetry && \
+    python -m pip install --no-cache-dir --requirement <(poetry export --format requirements.txt)
 
-ENTRYPOINT ["/entrypoint.sh"]
+COPY entrypoint.sh entrypoint.sh
+
+ENTRYPOINT ["./entrypoint.sh"]
