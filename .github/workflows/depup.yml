@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
-      - uses: reviewdog/action-depup@d6b40096afad49ca676145faaba7190df29a9807 # v1.6.3
+      - uses: reviewdog/action-depup@94a1aaf4e4923064019214b48a43276218af7ad5 # v1.6.4
         id: depup
         with:
           file: Dockerfile
