@@ -51,7 +51,7 @@ jobs:
     name: runner / pytest
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2.7.0
       - uses: reviewdog/action-pytest@v1
         with:
           github_token: ${{ secrets.github_token }}
